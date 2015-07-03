@@ -24,11 +24,6 @@
 //  SOFTWARE.
 //
 
-typedef NS_ENUM(NSInteger, ClusterTitleType) {
-    ClusterTitleTypeRequest,
-    ClusterTitleTypeDeny
-};
-
 
 #import "ClusterPrePermissions.h"
 
@@ -37,6 +32,14 @@ typedef NS_ENUM(NSInteger, ClusterTitleType) {
 #import <EventKit/EventKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
+
+
+typedef NS_ENUM(NSInteger, ClusterTitleType) {
+    ClusterTitleTypeRequest,
+    ClusterTitleTypeDeny
+};
+
 
 @interface ClusterPrePermissions () <UIAlertViewDelegate, CLLocationManagerDelegate>
 
@@ -639,9 +642,12 @@ static ClusterPrePermissions *__sharedInstance;
 
 - (BOOL)locationAuthorizationStatusPermitsAccess:(CLAuthorizationStatus)authorizationStatus
 {
-    return authorizationStatus == kCLAuthorizationStatusAuthorized ||
-    authorizationStatus == kCLAuthorizationStatusAuthorizedAlways ||
+#if __IPHONE_OS_VERSION_MIN_REQUIRED <= 7000
+    return authorizationStatus == kCLAuthorizationStatusAuthorized;
+#else
+    return authorizationStatus == kCLAuthorizationStatusAuthorizedAlways ||
     authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse;
+#endif
 }
 
 #pragma mark CLLocationManagerDelegate
@@ -712,10 +718,10 @@ static ClusterPrePermissions *__sharedInstance;
 {
     switch (titleType) {
         case ClusterTitleTypeDeny:
-            title = (title.length == 0) ? @"Not Now" : title;
+            title = (title.length == 0) ? NSLocalizedStringFromTable(@"Not Now", @"ClusterPrePermissions", NULL) : title;
             break;
         case ClusterTitleTypeRequest:
-            title = (title.length == 0) ? @"Give Access" : title;
+            title = (title.length == 0) ? NSLocalizedStringFromTable(@"Give Access", @"ClusterPrePermissions", NULL) : title;
             break;
         default:
             title = @"";

@@ -1,0 +1,10 @@
+/* 
+  ClusterPrePermissions.strings
+  ClusterPrePermissions
+
+  Created by André Campana on 29/06/2015.
+  Copyright (c) 2015 Cluster Labs, Inc. All rights reserved.
+*/
+
+"Not Now" = "Agora Não";
+"Give Access" = "Permitir Acesso";

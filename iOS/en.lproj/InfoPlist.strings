@@ -1,0 +1,4 @@
+/* Localized versions of Info.plist keys */
+
+"NSLocationAlwaysUsageDescription" = "This app uses your location even in background ...";
+"NSLocationWhenInUseUsageDescription" = "This app uses your location when in use ...";
